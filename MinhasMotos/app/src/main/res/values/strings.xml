@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MinhasMotos</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="barraPrincipal">MInhas Motos</string>
+</resources>

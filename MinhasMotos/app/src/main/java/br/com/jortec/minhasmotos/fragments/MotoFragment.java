@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
+
 import java.util.List;
 
 import br.com.jortec.minhasmotos.MainActivity;
@@ -28,6 +31,7 @@ import br.com.jortec.minhasmotos.interfaces.RecyclerViewOnclickListener;
  */
 public class MotoFragment extends Fragment implements RecyclerViewOnclickListener {
     private RecyclerView recyclerView;
+    private FloatingActionButton fab;
     List<Moto> listaMotos;
 
     @Override
@@ -67,6 +71,25 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         //adapter.setRecyclerViewOnclickListener(this);
         recyclerView.addOnItemTouchListener(new RecyclerViewTochListener(getActivity(),recyclerView,this));
         recyclerView.setAdapter(adapter);
+
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.attachToRecyclerView(recyclerView, new ScrollDirectionListener() {
+            @Override
+            public void onScrollDown() {
+
+            }
+
+            @Override
+            public void onScrollUp() {
+
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"onclickButton",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

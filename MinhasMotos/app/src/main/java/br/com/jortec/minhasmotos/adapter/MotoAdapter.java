@@ -33,7 +33,8 @@ public class MotoAdapter extends RecyclerView.Adapter<MotoAdapter.MyViewHolder> 
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = inflater.inflate(R.layout.item_moto, viewGroup, false);
+       // View v = inflater.inflate(R.layout.item_moto, viewGroup, false);
+        View v = inflater.inflate(R.layout.item_moto_card, viewGroup, false);
         MyViewHolder mvh= new MyViewHolder(v);
         return mvh;
     }

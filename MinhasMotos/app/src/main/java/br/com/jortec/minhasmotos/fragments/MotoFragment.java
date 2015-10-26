@@ -2,6 +2,7 @@ package br.com.jortec.minhasmotos.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +22,7 @@ import com.melnykov.fab.ScrollDirectionListener;
 import java.util.List;
 
 import br.com.jortec.minhasmotos.MainActivity;
+import br.com.jortec.minhasmotos.MotoDetalheActivity;
 import br.com.jortec.minhasmotos.R;
 import br.com.jortec.minhasmotos.adapter.MotoAdapter;
 import br.com.jortec.minhasmotos.dominio.Moto;
@@ -30,9 +32,9 @@ import br.com.jortec.minhasmotos.interfaces.RecyclerViewOnclickListener;
  * Created by Jorliano on 11/10/2015.
  */
 public class MotoFragment extends Fragment implements RecyclerViewOnclickListener {
-    private RecyclerView recyclerView;
-    private FloatingActionButton fab;
-    List<Moto> listaMotos;
+    protected RecyclerView recyclerView;
+    protected FloatingActionButton fab;
+    protected List<Moto> listaMotos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,21 +71,10 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         listaMotos = ((MainActivity) getActivity()).getLista(7);
         MotoAdapter adapter = new MotoAdapter(getActivity(),listaMotos);
         //adapter.setRecyclerViewOnclickListener(this);
-        recyclerView.addOnItemTouchListener(new RecyclerViewTochListener(getActivity(),recyclerView,this));
+        recyclerView.addOnItemTouchListener(new RecyclerViewTochListener(getActivity(), recyclerView, this));
         recyclerView.setAdapter(adapter);
 
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-        fab.attachToRecyclerView(recyclerView, new ScrollDirectionListener() {
-            @Override
-            public void onScrollDown() {
-
-            }
-
-            @Override
-            public void onScrollUp() {
-
-            }
-        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +87,19 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
 
     @Override
     public void onclickListener(View view, int position) {
-        Toast.makeText(getActivity(),"onclickListener",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"onclickListener"+position,Toast.LENGTH_SHORT).show();
+
+        Moto moto = new Moto();
+        moto.setModelo(listaMotos.get(position).getModelo());
+        moto.setMarca(listaMotos.get(position).getMarca());
+        moto.setCategoria(listaMotos.get(position).getCategoria());
+        moto.setDescricao(listaMotos.get(position).getDescricao());
+        moto.setFoto(listaMotos.get(position).getFoto());
+
+        Intent intent = new Intent(getActivity(), MotoDetalheActivity.class);
+        intent.putExtra("dados", moto);
+        startActivity(intent);
+
     }
 
     @Override

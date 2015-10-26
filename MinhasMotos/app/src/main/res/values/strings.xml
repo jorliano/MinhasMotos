@@ -9,4 +9,8 @@
     <string name="drawer_item_settings">Configurações</string>
     <string name="drawer_item_moto_popular">Moto Popular</string>
     <string name="drawer_item_notificacao">Notificação</string>
+    <string name="drawer_item_moto_colecionador">Colecionador</string>
+    <string name="drawer_item_moto_esporte">Esporte</string>
+    <string name="title_activity_moto_detalhe">MotoDetalheActivity</string>
+    <string name="telefone">Telefone</string>
 </resources>

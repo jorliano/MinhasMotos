@@ -4,6 +4,7 @@ package br.com.jortec.minhasmotos;
 import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,12 +31,16 @@ import java.util.List;
 
 import br.com.jortec.minhasmotos.dominio.Moto;
 import br.com.jortec.minhasmotos.fragments.MotoFragment;
+import br.com.jortec.minhasmotos.fragments.MotosEsporteFragment;
+import br.com.jortec.minhasmotos.fragments.MotosLuxoFragment;
+import br.com.jortec.minhasmotos.fragments.MotosVelhasFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Drawer.Result navegadorDrawer;
     private AccountHeader.Result accountHeader;
+    int itemDrawerSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         // BODY
-
         navegadorDrawer = new Drawer()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -83,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_home),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_moto_luxo),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_moto_popular),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_moto_esporte),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_moto_colecionador),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_settings),
                         new SwitchDrawerItem().withName(R.string.drawer_item_notificacao).withChecked(true)
@@ -92,7 +97,33 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
-                        Toast.makeText(MainActivity.this, "onItemClick: " + i, Toast.LENGTH_SHORT).show();
+
+                           Fragment frag = null;
+                           itemDrawerSelected = i;
+
+                           if(i == 0){ // ALL MOTOS
+                               frag = new MotoFragment();
+                            }
+                             else if(i == 1){ // LUXURY MOTOS
+                                frag = new MotosLuxoFragment();
+                            }
+                            else if(i == 2){ // SPORT MOTOS
+                                frag = new MotosEsporteFragment();
+                            }
+                            else if(i == 3){ // OLD MOTOS
+                                frag = new MotosVelhasFragment();
+                             }
+                            else if(i == 4){ // POPULAR MOTOS
+                                // frag = new PopularCarFragment();
+                             }
+
+
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.rl_fragment_container, frag, "mainFrag");
+                        ft.commit();
+
+                        toolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+
                     }
                 })
                 .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
@@ -104,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
     public List<Moto> getLista(int qtd) {
         String modelos[] = new String[]{"Fan 125", "Fan 150", "Bros 160", "Factor", "Hornet", "Falcon", "Fazer 250"};
         String marcas[] = new String[]{"Honda", "Yamaha", "Suzuki", "Dafra", "Honda", "Importada", "Desconhecida"};
+        int categoria[] = new int[]{1,2,3,1,2,3,1};
         int foto[] = new int[]{R.drawable.moto1, R.drawable.moto2, R.drawable.moto3, R.drawable.moto4, R.drawable.moto5, R.drawable.moto6, R.drawable.moto7};
 
         List<Moto> lista = new ArrayList<Moto>();
@@ -138,9 +172,15 @@ public class MainActivity extends AppCompatActivity {
             Moto m = new Moto();
             m.setModelo(modelos[i]);
             m.setMarca(marcas[i]);
+            m.setCategoria(i);
+            m.setDescricao("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n");
             m.setFoto(foto[i]);
 
-            lista.add(m);
+            if(itemDrawerSelected != 0 && categoria[i] == itemDrawerSelected){
+                lista.add(m);
+            }else if (itemDrawerSelected == 0){
+                lista.add(m);
+            }
         }
         return lista;
     }

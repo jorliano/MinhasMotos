@@ -74,7 +74,7 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         recyclerView.addOnItemTouchListener(new RecyclerViewTochListener(getActivity(), recyclerView, this));
         recyclerView.setAdapter(adapter);
 
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab = (FloatingActionButton)view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

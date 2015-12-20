@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -29,7 +30,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.jortec.minhasmotos.adapter.TabsAdapter;
 import br.com.jortec.minhasmotos.dominio.Moto;
+import br.com.jortec.minhasmotos.extras.SlidingTabLayout;
 import br.com.jortec.minhasmotos.fragments.MotoFragment;
 import br.com.jortec.minhasmotos.fragments.MotosEsporteFragment;
 import br.com.jortec.minhasmotos.fragments.MotosLuxoFragment;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Drawer.Result navegadorDrawer;
     private AccountHeader.Result accountHeader;
+    private SlidingTabLayout slidingTabLayout;
+    private ViewPager viewPager;
     int itemDrawerSelected;
 
     @Override
@@ -51,14 +56,33 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.barraPrincipal);
         setSupportActionBar(toolbar);
 
-        //FRAGMENTO
+        /*FRAGMENTO
         MotoFragment frag = (MotoFragment) getSupportFragmentManager().findFragmentByTag("mainFrag");
         if (frag == null) {
             frag = new MotoFragment();
             FragmentTransaction fts = getSupportFragmentManager().beginTransaction();
             fts.replace(R.id.rl_fragment_container, frag, "mainFrag");
             fts.commit();
-        }
+        }*/
+
+        //TABS
+        viewPager = (ViewPager) findViewById(R.id.vp_tabs);
+        viewPager.setAdapter(new TabsAdapter(getSupportFragmentManager(),this));
+
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tbs_layout);
+        slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(android.R.color.white));
+        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageSelected(int position) {
+              navegadorDrawer.setSelection(position);
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
+        slidingTabLayout.setViewPager(viewPager);
+
 
         // NAVIGATION DRAWER
         // HEADER
@@ -97,8 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
+                        itemDrawerSelected = i;
+                        viewPager.setCurrentItem(i);
 
-                           Fragment frag = null;
+                        /*   Fragment frag = null;
                            itemDrawerSelected = i;
 
                            if(i == 0){ // ALL MOTOS
@@ -122,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         ft.replace(R.id.rl_fragment_container, frag, "mainFrag");
                         ft.commit();
 
-                        toolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());
+                        toolbar.setTitle(((PrimaryDrawerItem) iDrawerItem).getName());*/
 
                     }
                 })

@@ -3,12 +3,17 @@ package br.com.jortec.minhasmotos;
 
 import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.ChangeBounds;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TRASECTION
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+           /* getWindow().setExitTransition(new Explode().setDuration(3000));
+            getWindow().setReenterTransition(new Fade().setDuration(3000));*/
+
+            getWindow().setSharedElementExitTransition(new ChangeBounds());
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

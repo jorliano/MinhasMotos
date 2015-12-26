@@ -57,13 +57,13 @@ public class MotosLuxoFragment extends MotoFragment{
         recyclerView.addOnItemTouchListener(new MotoFragment.RecyclerViewTochListener(getActivity(),recyclerView,this));
         recyclerView.setAdapter(adapter);
 
-        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+       /* fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),"onclickButton",Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         return view;
     }

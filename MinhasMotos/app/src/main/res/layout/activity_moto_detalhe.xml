@@ -1,93 +1,235 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.com.jortec.minhasmotos.MotoDetalheActivity">
 
-    <LinearLayout
-        android:id="@+id/ll_detalhe"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="300dp"
+        android:fitsSystemWindows="true">
 
-        <FrameLayout
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="24dp"/>
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/detalhe_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize" />
-
-    </LinearLayout>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/ll_detalhe"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="25dp">
-
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
             <ImageView
-                android:id="@+id/imagem_detalhe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="10dp" />
-
-            <TextView
-                android:id="@+id/txt_modelo_detalhe"
+                android:id="@+id/imagem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/imagem"
+                android:scaleType="centerCrop"
+                android:transitionName="element1"
+                app:layout_collapseMode="parallax" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detalhe_toolbar"
+                android:elevation="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/primary"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingTop="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txModelo"
+                android:paddingTop="20dp"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/txt_marca_detalhe"
+                android:id="@+id/txMarca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txModelo"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/txt_descricao_detalhe"
+            <LinearLayout
+                android:id="@+id/ll_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/txMarca"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_descricao_detalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/bt_detalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="Agendar Test Drive"
+                    android:textColor="#1d80f0"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+    <!--RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="br.com.jortec.minhasmotos.MotoDetalheActivity">
+
+        <LinearLayout
+            android:id="@+id/ll_detalhe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_marca_detalhe"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp" />
+                android:paddingTop="24dp"/>
 
-            <Button
-                android:id="@+id/bt_detalhe"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:background="@android:color/transparent"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="Agendar Test Drive"
-                android:textColor="#1d80f0"
-                android:textSize="16sp"/>
-
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detalhe_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize" />
 
         </LinearLayout>
 
-    </ScrollView>
 
-</RelativeLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ll_detalhe"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="25dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imagem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="10dp"
+                    android:transitionName="element1"/>
+
+                <TextView
+                    android:id="@+id/txModelo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/imagem"
+                    android:textSize="18sp"
+                    android:transitionName="element2"/>
+
+                <TextView
+                    android:id="@+id/txMarca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txModelo"
+                    android:textSize="18sp"
+                    android:transitionName="element3"/>
+
+                <LinearLayout
+                    android:layout_below="@+id/txMarca"
+                    android:id="@+id/ll_descricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_descricao_detalhe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="16sp"
+                        android:visibility="invisible"/>
+
+                    <Button
+                        android:id="@+id/bt_detalhe"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="Agendar Test Drive"
+                        android:textColor="#1d80f0"
+                        android:textSize="16sp"
+                        android:visibility="invisible"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+    </RelativeLayout -->

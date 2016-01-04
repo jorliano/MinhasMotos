@@ -2,13 +2,18 @@ package br.com.jortec.minhasmotos;
 
 
 import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
 import android.transition.Explode;
@@ -42,6 +47,8 @@ import br.com.jortec.minhasmotos.fragments.MotoFragment;
 import br.com.jortec.minhasmotos.fragments.MotosEsporteFragment;
 import br.com.jortec.minhasmotos.fragments.MotosLuxoFragment;
 import br.com.jortec.minhasmotos.fragments.MotosVelhasFragment;
+import br.com.jortec.minhasmotos.provider.MotoWidgetProvider;
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -174,12 +181,36 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
+    @Override
+    protected void onResume() {
+        if (getIntent() != null && getIntent().getStringExtra(MotoWidgetProvider.FILTER_MOTOS_ITEM) != null){
+            Moto m = new Moto();
+            m.setModelo(getIntent().getStringExtra(MotoWidgetProvider.FILTER_MOTOS_ITEM));
 
+            EventBus.getDefault().post(m);
+        }
+        super.onResume();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+       /* SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView;
+        MenuItem item = menu.findItem(R.id.action_searchable_activity);
+
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ){
+            searchView = (SearchView) item.getActionView();
+        }
+        else{
+            searchView = (SearchView) MenuItemCompat.getActionView(item);
+        }
+
+        searchView.setSearchableInfo( searchManager.getSearchableInfo( getComponentName() ) );
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));*/
+
         return true;
 
     }
@@ -192,9 +223,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+       if(id == R.id.action_searchable_activity){
+            startActivity(new Intent(this, SearchableActivity.class));
+       }
 
         return super.onOptionsItemSelected(item);
     }

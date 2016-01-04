@@ -2,6 +2,7 @@ package br.com.jortec.minhasmotos.fragments;
 
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -38,6 +39,7 @@ import br.com.jortec.minhasmotos.adapter.MotoAdapter;
 import br.com.jortec.minhasmotos.dominio.Moto;
 import br.com.jortec.minhasmotos.extras.UtilConexao;
 import br.com.jortec.minhasmotos.interfaces.RecyclerViewOnclickListener;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Jorliano on 11/10/2015.
@@ -47,6 +49,28 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
     protected android.support.design.widget.FloatingActionButton fab;
     protected List<Moto> listaMotos;
     protected SwipeRefreshLayout swipeRefreshLayout;
+    protected Activity activity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        EventBus.getDefault().register(this);
+        this.activity = activity;
+    }
+
+    public void onEvent(Moto moto){
+        for (int i =0; i < listaMotos.size(); i++){
+            if(listaMotos.get(i).getModelo().equalsIgnoreCase(moto.getModelo())
+                    && this.getClass().getName().equalsIgnoreCase(MotoFragment.class.getName())){
+                Intent intent = new Intent(getContext(),MotoDetalheActivity.class);
+                intent.putExtra("dados", listaMotos.get(i));
+                activity.startActivity(intent);
+
+
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,10 +98,12 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
             }
         });
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        // GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3,GridLayoutManager.VERTICAL,false);
+
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+       // layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
         listaMotos = ((MainActivity) getActivity()).getLista(7);

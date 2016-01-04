@@ -14,4 +14,11 @@
     <string name="title_activity_moto_detalhe">MotoDetalheActivity</string>
     <string name="telefone">Telefone</string>
     <string name="preferencias">Configuração</string>
+    <string name="app_label">Pesquisa</string>
+    <string name="search_hint">Pesquisar</string>
+    <string name="action_searchable_activity">meu_pesquisa</string>
+    <string name="action_delete">Deletar</string>
+    <string name="title_activity_searchbleActivity">SearchableActivity</string>
+
+
 </resources>

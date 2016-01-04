@@ -49,7 +49,7 @@ public class MotosLuxoFragment extends MotoFragment{
             }
         });
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
         listaMotos = ((MainActivity) getActivity()).getLista(7);

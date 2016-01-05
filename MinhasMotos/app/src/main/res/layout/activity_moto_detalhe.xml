@@ -31,12 +31,12 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detalhe_toolbar"
-                android:elevation="0dp"
-                android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
                 android:minHeight="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -62,10 +62,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingTop="0dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
@@ -75,12 +75,12 @@
 
 
             <TextView
+                android:id="@+id/txModelo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txModelo"
-                android:transitionName="element2"
                 android:paddingTop="20dp"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:transitionName="element2" />
 
             <TextView
                 android:id="@+id/txMarca"
@@ -92,7 +92,7 @@
             <LinearLayout
                 android:id="@+id/ll_descricao"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/txMarca"
                 android:orientation="vertical">
 
@@ -103,23 +103,61 @@
                     android:layout_marginTop="10dp"
                     android:textSize="16sp"
                     android:visibility="invisible" />
-
-                <Button
-                    android:id="@+id/bt_detalhe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Agendar Test Drive"
-                    android:textColor="#1d80f0"
-                    android:textSize="16sp"
-                    android:visibility="invisible" />
-
             </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_detalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_below="@id/ll_descricao"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Telefone"
+                android:textColor="#1d80f0"
+                android:textSize="16sp"
+                android:visibility="invisible" />
+
+            <View
+                android:id="@+id/vi_hline_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/bt_detalhe"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
+
+            <TextView
+                android:id="@+id/tv_test_drive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/vi_hline_1"
+                android:layout_marginTop="30dp"
+                android:text=""
+                android:textColor="@color/primary_text"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/bt_test_drive"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/vi_hline_1"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Agendar Test"
+                android:textColor="#1d80f0"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 

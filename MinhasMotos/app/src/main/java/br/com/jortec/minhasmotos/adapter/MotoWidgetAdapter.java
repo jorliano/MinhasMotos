@@ -2,7 +2,6 @@ package br.com.jortec.minhasmotos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -10,7 +9,6 @@ import android.widget.RemoteViewsService;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 
 import br.com.jortec.minhasmotos.MainActivity;
 import br.com.jortec.minhasmotos.R;

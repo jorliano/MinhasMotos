@@ -1,24 +1,13 @@
 package br.com.jortec.minhasmotos;
 
 
-import android.app.FragmentManager;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,11 +20,8 @@ import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +29,6 @@ import java.util.List;
 import br.com.jortec.minhasmotos.adapter.TabsAdapter;
 import br.com.jortec.minhasmotos.dominio.Moto;
 import br.com.jortec.minhasmotos.extras.SlidingTabLayout;
-import br.com.jortec.minhasmotos.fragments.MotoFragment;
-import br.com.jortec.minhasmotos.fragments.MotosEsporteFragment;
-import br.com.jortec.minhasmotos.fragments.MotosLuxoFragment;
-import br.com.jortec.minhasmotos.fragments.MotosVelhasFragment;
 import br.com.jortec.minhasmotos.provider.MotoWidgetProvider;
 import de.greenrobot.event.EventBus;
 

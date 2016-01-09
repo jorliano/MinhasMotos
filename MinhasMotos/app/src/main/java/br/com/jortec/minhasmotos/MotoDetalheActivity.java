@@ -2,13 +2,11 @@ package br.com.jortec.minhasmotos;
 
 import android.content.DialogInterface;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.ChangeBounds;
-import android.transition.Explode;
-import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;

@@ -1,16 +1,17 @@
 package br.com.jortec.minhasmotos.fragments;
 
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,12 +20,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-
 
 import java.util.List;
 
@@ -55,11 +52,11 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         this.activity = activity;
     }
 
-    public void onEvent(Moto moto){
-        for (int i =0; i < listaMotos.size(); i++){
-            if(listaMotos.get(i).getModelo().equalsIgnoreCase(moto.getModelo())
-                    && this.getClass().getName().equalsIgnoreCase(MotoFragment.class.getName())){
-                Intent intent = new Intent(getContext(),MotoDetalheActivity.class);
+    public void onEvent(Moto moto) {
+        for (int i = 0; i < listaMotos.size(); i++) {
+            if (listaMotos.get(i).getModelo().equalsIgnoreCase(moto.getModelo())
+                    && this.getClass().getName().equalsIgnoreCase(MotoFragment.class.getName())) {
+                Intent intent = new Intent(getContext(), MotoDetalheActivity.class);
                 intent.putExtra("dados", listaMotos.get(i));
                 activity.startActivity(intent);
 
@@ -95,11 +92,10 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         });
 
 
-
         //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-       // layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         listaMotos = ((MainActivity) getActivity()).getLista(7);
@@ -108,18 +104,12 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         recyclerView.addOnItemTouchListener(new RecyclerViewTochListener(getActivity(), recyclerView, this));
         recyclerView.setAdapter(adapter);
 
-        /*fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "onclickButton", Toast.LENGTH_SHORT).show();
-            }
-        });*/
+
         fab = (android.support.design.widget.FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.support.design.widget.Snackbar.make(view,"FAB click", android.support.design.widget.Snackbar.LENGTH_SHORT)
+                android.support.design.widget.Snackbar.make(view, "FAB click", android.support.design.widget.Snackbar.LENGTH_SHORT)
                         .setAction("ok", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -150,7 +140,7 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
                     }
 
                 } else {
-                    android.support.design.widget.Snackbar.make(view,"Sem acesso a internet , verifique sua conexão", android.support.design.widget.Snackbar.LENGTH_LONG)
+                    android.support.design.widget.Snackbar.make(view, "Sem acesso a internet , verifique sua conexão", android.support.design.widget.Snackbar.LENGTH_LONG)
                             .setAction("ok", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -158,24 +148,6 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
                                 }
                             }).show();
 
-                   /* SnackbarManager.show(
-                            Snackbar.with(getActivity())
-                                    .text("Sem acesso a internet , verifique sua conexão")
-                                    .color(getActivity().getResources().getColor(android.R.color.black))
-                                    .textColor(getActivity().getResources().getColor(android.R.color.white))
-                                    .eventListener(new EventListenerAdapter() {
-                                        @Override
-                                        public void onShow(Snackbar snackbar) {
-                                            super.onShow(snackbar);
-                                            ObjectAnimator.ofFloat(fab, "translationY", - snackbar.getHeight()).start();
-                                        }
-
-                                        @Override
-                                        public void onDismiss(Snackbar snackbar) {
-                                            super.onDismissed(snackbar);
-                                            ObjectAnimator.ofFloat(fab, "translationY",0).start();
-                                        }
-                                    }));*/
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -199,11 +171,11 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
         intent.putExtra("dados", moto);
 
         //TRANSACTION
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-           View tvMarca = view.findViewById(R.id.txMarca);
-           View tvModelo = view.findViewById(R.id.txModelo);
-           //View tvDescricao = view.findViewById(R.id.txt_descricao_detalhe);
-           View tvImagem = view.findViewById(R.id.imagem);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View tvMarca = view.findViewById(R.id.txMarca);
+            View tvModelo = view.findViewById(R.id.txModelo);
+            //View tvDescricao = view.findViewById(R.id.txt_descricao_detalhe);
+            View tvImagem = view.findViewById(R.id.imagem);
 
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
@@ -212,10 +184,9 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
                     Pair.create(tvMarca, "element3"));
 
             getActivity().startActivity(intent, options.toBundle());
-        }else{
+        } else {
             startActivity(intent);
         }
-
 
 
     }
@@ -240,19 +211,37 @@ public class MotoFragment extends Fragment implements RecyclerViewOnclickListene
                 public void onLongPress(MotionEvent e) {
                     super.onLongPress(e);
 
-                    View view = rv.findChildViewUnder(e.getX(), e.getY());
+                    View carView = rv.findChildViewUnder(e.getX(), e.getY());
 
-                    if (view != null && recyclerViewOnclickListene != null) {
-                        recyclerViewOnclickListene.onLongPressClickListener(view, rv.getChildPosition(view));
+                    //PEGAR O CLICK NO CARDVIEW
+                    if (carView != null && recyclerViewOnclickListene != null) {
+                        recyclerViewOnclickListene.onLongPressClickListener(carView, rv.getChildPosition(carView));
                     }
                 }
 
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
-                    View view = rv.findChildViewUnder(e.getX(), e.getY());
+                    View carView = rv.findChildViewUnder(e.getX(), e.getY());
 
-                    if (view != null && recyclerViewOnclickListene != null) {
-                        recyclerViewOnclickListene.onclickListener(view, rv.getChildPosition(view));
+                    //PEGAR O CLICK NO FLOAT_MENU
+                    boolean callContextMenuStatus = false;
+                    if (carView instanceof CardView) {
+                        float x = ((RelativeLayout) ((CardView) carView).getChildAt(0)).getChildAt(3).getX();
+                        float y;//= ((RelativeLayout)((CardView) carView).getChildAt(0)).getChildAt(3).getY();
+                        float w = ((RelativeLayout) ((CardView) carView).getChildAt(0)).getChildAt(3).getWidth();
+                        float h = ((RelativeLayout) ((CardView) carView).getChildAt(0)).getChildAt(3).getHeight();
+
+                        //pegar o y modificado
+                        Rect rec = new Rect();
+                        ((RelativeLayout) ((CardView) carView).getChildAt(0)).getChildAt(3).getGlobalVisibleRect(rec);
+                        y = rec.top;
+
+                        if (e.getX() >= x && e.getX() <= w + x && e.getRawY() >= y && e.getRawY() <= h + y) {
+                            callContextMenuStatus = true;
+                        }
+                    }
+                    if (carView != null && recyclerViewOnclickListene != null && !callContextMenuStatus) {
+                        recyclerViewOnclickListene.onclickListener(carView, rv.getChildPosition(carView));
                     }
 
                     return (true);
